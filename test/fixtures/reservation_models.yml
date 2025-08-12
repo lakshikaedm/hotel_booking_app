@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  check_in: 2025-08-12
+  check_out: 2025-08-12
+  guests: 1
+  total_price: 1
+  confirmed_at: 2025-08-12 18:18:47
+  user_model: one
+  room_model: one
+
+two:
+  check_in: 2025-08-12
+  check_out: 2025-08-12
+  guests: 1
+  total_price: 1
+  confirmed_at: 2025-08-12 18:18:47
+  user_model: two
+  room_model: two
