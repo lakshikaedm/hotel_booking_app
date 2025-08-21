@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HotelBooking</title>
+    <title>BookInn</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,55 @@
   </head>
 
   <body>
+    <header class="app-header">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid mt-2">
+          <%= link_to root_path, class: "navbar-brand" do %>
+            <%= image_tag "logo.SVG", alt: "BookInn Logo", height: "60" %>
+          <% end %>
+
+        
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <% if logged_in? %>
+              <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="avatar d-inline-block rounded-circle overflow-hidden" style="width:90px; height:60px;">
+                      <%= icon_image_for(current_user, size: 40, html: { class: "img-fluid" }) %>
+                    </span>
+                    <span class="username"><%= current_user.name %></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><%= link_to "プロフィール", current_user, class: "dropdown-item" %></li>
+                    <li><%= link_to "プロフィール編集", edit_profile_path, class: "dropdown-item" %></li>
+                    <li><%= link_to "予約済み一覧", reservation_models_path, class: "dropdown-item" %></li>
+                    <li><%= link_to "登録済み一覧", room_models_path, class: "dropdown-item" %></li>
+                    <li><%= link_to "施設を登録", new_room_model_path, class: "dropdown-item" %></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <%= button_to "ログアウト", session_path, method: :delete, form: { class: "menu-form" }, class: "dropdown-item text-danger", data: { confirm: "ログアウトしますか？" } %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            <% else %>
+              <div class="d-flex gap-2 mt-2">
+                <%= link_to "ログイン", login_path, type: "button", class: "btn btn-success" %>
+                <%= link_to "新規登録", new_user_model_path, type: "button", class: "btn btn-danger" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <%= render "shared/flash" %>
+    <hr>
     <%= yield %>
   </body>
 </html>

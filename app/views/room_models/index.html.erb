@@ -1,0 +1,60 @@
+<h4 class="container text-center fw-normal lh-base"><strong>BookInn</strong>へようこそ！<br>
+あなたの旅の始まりを、もっと簡単に、もっと楽しく。<br>
+<strong>BookInn</strong>では、世界中のホテルや宿泊施設をシンプルに検索・予約できます。<br>
+理想の滞在先を見つけて、大切な人との思い出をつくりましょう。</h4>
+
+<div class="container my-5">
+  <h3 class="text-center text-primary fw-bold mb-4">
+    ー おすすめエリア ー
+  </h3>
+  <hr class="mx-auto" style="width: 200px; border: 2px solid #0d6efd;">
+</div>
+
+<div class="container my-4">
+  <div class="row text-center">
+    <div class="col-6 col-md-3 mb-3">
+      <%= link_to catalog_room_models_path(area: "Tokyo"), class: "text-decoration-none text-dark" do %>
+        <div class="card h-100 shadow-sm destination-card">
+          <%= image_tag "tokyo.jpg", class: "card-img-top destination-img", alt: "Tokyo" %>
+          <div class="card-body text-center">
+            <div class="card-text">東京 - Tokyo</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <%= link_to catalog_room_models_path(area: "Kyoto"), class: "text-decoration-none text-dark" do %>
+        <div class="card h-100 shadow-sm destination-card">
+          <%= image_tag "kyoto.jpg", class: "card-img-top destination-img", alt: "Kyoto" %>
+          <div class="card-body text-center">
+            <div class="card-text">京都 - Kyoto</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <%= link_to catalog_room_models_path(area: "Osaka"), class: "text-decoration-none text-dark" do %>
+        <div class="card h-100 shadow-sm destination-card">
+          <%= image_tag "osaka.jpg", class: "card-img-top destination-img", alt: "Osaka" %>
+          <div class="card-body text-center">
+            <div class="card-text">大阪 - Osaka</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <%= link_to catalog_room_models_path(area: "Sapporo"), class: "text-decoration-none text-dark" do %>
+        <div class="card h-100 shadow-sm destination-card">
+          <%= image_tag "sapporo.jpg", class: "card-img-top destination-img", alt: "Sapporo" %>
+          <div class="card-body text-center">
+            <div class="card-text">札幌 - Sapporo</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container my-4 text-center">
+  <%= link_to "すべての施設を見る", catalog_room_models_path, class: "btn btn-outline-primary btn-lg" %>
+</div>

@@ -1,2 +1,56 @@
-<h1>UserModels#new</h1>
-<p>Find me in app/views/user_models/new.html.erb</p>
+<div class="d-flex justify-content-center">
+  <div class="card shadow" style="max-width: 800px; width: 100%;">
+    <div class="card-body">
+      <h1 class="card-title text-center mb-4">新期登録</h1>
+      <% if @user_model && @user_model.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <strong>入力内容にエラーがあります。</strong>
+          <ul class="mb-0 mt-2">
+            <% @user_model.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= form_with model: @user_model do |f| %>
+        <div class="row mb-3 align-items-center border rounded p-2">
+          <%= f.label :name, "名前", class: "col-sm-4 col-form-label fw-bold text-start" %>
+          <div class="col-sm-8">
+            <%= f.text_field :name, class: "form-control border border-primary", placeholder: "例）山田太郎" %>
+            <% f.object.errors.full_messages_for(:name).each do |msg| %>
+              <div class="text-danger small mt-1"><%= msg %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="row mb-3 align-items-center border rounded p-2">
+          <%= f.label :email, "メールアドレス", class: "col-sm-4 col-form-label fw-bold text-start" %>
+          <div class="col-sm-8">
+            <%= f.email_field :email, class: "form-control border border-primary", placeholder: "例）example@email.com" %>
+            <% f.object.errors.full_messages_for(:email).each do |msg| %>
+              <div class="text-danger small mt-1"><%= msg %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="row mb-3 align-items-center border rounded p-2">
+          <%= f.label :password, "パスワード", class: "col-sm-4 col-form-label fw-bold text-start" %>
+          <div class="col-sm-8">
+            <%= f.password_field :password, class: "form-control border border-primary", placeholder: "6文字以上のパスワード" %>
+            <% f.object.errors.full_messages_for(:password).each do |msg| %>
+              <div class="text-danger small mt-1"><%= msg %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="row mb-3 align-items-center border rounded p-2">
+          <%= f.label :password_confirmation, "パスワード確認", class: "col-sm-4 col-form-label fw-bold text-start" %>
+          <div class="col-sm-8">
+            <%= f.password_field :password_confirmation, class: "form-control border border-primary", placeholder: "もう一度パスワードを入力" %>
+            <% f.object.errors.full_messages_for(:password_confirmation).each do |msg| %>
+              <div class="text-danger small mt-1"><%= msg %></div>
+            <% end %>
+          </div>
+        </div>
+        <%= f.submit "アカウントを作成", class: "btn btn-primary w-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>

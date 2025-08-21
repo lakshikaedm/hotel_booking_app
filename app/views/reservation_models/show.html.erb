@@ -1,0 +1,74 @@
+<div class="card border-dark mx-auto" style="max-width: 800px;">
+  <div class="card-body">
+    <h1 class="card-title mb-4 text-center">予約確認</h1>
+
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">施設名:</div>
+      <div class="col-sm-8">
+        <%= link_to @reservation_model.room_model.title, @reservation_model.room_model %>
+      </div>
+    </div>
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">チェックイン:</div>
+      <div class="col-sm-8"><%= ymd(@reservation_model.check_in) %></div>
+    </div>
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">チェックアウト:</div>
+      <div class="col-sm-8"><%= ymd(@reservation_model.check_out) %></div>
+    </div>
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">宿泊数:</div>
+      <div class="col-sm-8"><%= @reservation_model.nights %> 泊</div>
+    </div>
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">人数:</div>
+      <div class="col-sm-8"><%= @reservation_model.guests %> 名</div>
+    </div>
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">支払金額:</div>
+      <div class="col-sm-8"><%= yen(@reservation_model.total_price) %></div>
+    </div>
+    <div class="row mb-3 border rounded p-2 align-items-center">
+      <div class="col-sm-4 fw-bold">予約確定時間:</div>
+      <div class="col-sm-8"><%= ymd_hm(@reservation_model.confirmed_at) %></div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col d-flex justify-content-center gap-3">
+        <%= link_to "予約一覧へ", reservation_models_path, class: "btn btn-secondary" %>
+        <%= link_to "予約を編集", edit_reservation_model_path(@reservation_model), class: "btn btn-primary" %>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#resDel-<%= @reservation_model.id %>">
+          予約を削除
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="resDel-<%= @reservation_model.id %>" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">予約を削除しますか？</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex gap-3 align-items-start">
+          <div style="width:120px; flex:0 0 120px;">
+            <%= facility_image_for(@reservation_model.room_model, size: 300, class: "img-fluid rounded") %>
+          </div>
+          <div class="flex-grow-1">
+            <div class="fw-bold mb-1"><%= @reservation_model.room_model.title %></div>
+            <div class="text-muted mb-2">料金/日: <%= yen(@reservation_model.room_model.fee) %></div>
+            <div>チェックイン: <%= ymd(@reservation_model.check_in) %></div>
+            <div>チェックアウト: <%= ymd(@reservation_model.check_out) %></div>
+            <div>人数: <%= @reservation_model.guests %> 名</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        <%= button_to "削除する", reservation_model_path(@reservation_model), method: :delete, class: "btn btn-danger", form: { data: { turbo: false } } %>
+      </div>
+    </div>
+  </div>
+</div>

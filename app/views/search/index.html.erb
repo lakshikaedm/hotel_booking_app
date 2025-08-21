@@ -1,0 +1,45 @@
+<h1>設定検索</h1>
+
+<%= form_with url: search_path, method: :get, local: true do |f| %>
+  <div>
+    <%= label_tag :area, "エリア" %><br>
+    <%= select_tag :area,
+        options_for_select([["(指定なし)", ""], ["Tokyo", "Tokyo"], ["Osaka", "Osaka"], ["Kyoto", "Kyoto"], ["Sapporo", "Sapporo"]], selected: @area),
+        include_blank: false %>
+  </div>
+
+  <div style="margin-top:8px;">
+    <%= label_tag :q, "フリーワード(施設名·詳細)" %><br>
+    <%= text_field_tag :q, @q, placeholder: "例) station, onsen, quiet" %>
+  </div>
+
+  <div style="margin-top:8px;">
+    <%= submit_tag "検索する" %>
+  </div>
+<% end %>
+
+<hr>
+
+<% if @area.present? || @q.present? %>
+  <p>検索結果: <strong><%= @total %></strong>件</p>
+<% end %>
+
+<div class="d-flex justify-content-center my-3">
+  <%= paginate @room_models %>
+</div>
+
+<ul>
+  <% @room_models.each do |room| %>
+    <li style="margin-bottom:14px;">
+      <%= facility_image_for(room, size: 120) %><br>
+      <strong><%= link_to room.title, room %></strong><br>
+      住所: <%= room.address %><br>
+      料金/日: <%= yen(room.fee) %><br>
+      作成日: <%= ymd(room.created_at) %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="d-flex justify-content-center my-3">
+  <%= paginate @room_models %>
+</div>

@@ -1,0 +1,54 @@
+@import "bootstrap/scss/bootstrap";
+
+.navbar {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar img {
+  height: 180px;
+  width: auto;
+  object-fit: contain; 
+  justify-content: center; 
+  align-items: center;
+  margin-top: 5px;
+  padding-left: 30px;
+}
+
+.avatar { width: 90px; height: 90px; margin-right: 10px; }
+.avatar > img,
+img.avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.destination-img {
+  height: 400px;   
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.destination-card {
+  border-radius: 12px;
+  overflow: hidden; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.destination-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.15), 0 .5rem 1rem rgba(0,0,0,.15);
+}
+ 
+.rounded.overflow-hidden.shadow-sm img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
