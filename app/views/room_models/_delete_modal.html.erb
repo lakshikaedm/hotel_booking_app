@@ -1,0 +1,19 @@
+<dialog id="delete-room-<%= room.id %>" class="modal">
+  <h3>施設を削除しますか？</h3>
+
+  <div class="modal-body">
+    <div class="modal-image"><%= facility_image_for(room, size: 160) %></div>
+    <div class="modal-info">
+      <p><strong>施設名:</strong> <%= room.title %></p>
+      <p><strong>料金/日:</strong> <%= yen(room.fee) %></p>
+    </div>
+  </div>
+
+  <div class="modal-actions">
+    <button type="button" class="btn" onclick="this.closest('dialog').close()">キャンセル</button>
+    <%= button_to room, method: :delete, form: { class: 'btn-danger-inline' }, data: { turbo: false } do %>
+    削除する
+    <% end %>
+  </div>
+</dialog>
+

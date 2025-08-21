@@ -2,16 +2,30 @@
   "name": "hotel-booking",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.4",
+    "bootstrap": "5.3.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/plugin-proposal-class-properties": "^7",
+    "@babel/plugin-proposal-object-rest-spread": "^7",
+    "@babel/plugin-proposal-private-methods": "^7",
+    "@babel/plugin-proposal-private-property-in-object": "^7",
+    "@babel/plugin-syntax-dynamic-import": "^7",
+    "@babel/plugin-transform-runtime": "^7",
+    "@babel/preset-env": "^7",
+    "babel-loader": "^8",
+    "babel-plugin-macros": "^3",
+    "core-js": "^3",
+    "regenerator-runtime": "^0.13",
     "webpack-dev-server": "^3"
   }
 }

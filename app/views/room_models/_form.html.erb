@@ -1,0 +1,52 @@
+<div class="card border-dark mx-auto mt-4" style="max-width: 800px;">
+  <div class="card-body">
+    <%= form_with model: @room_model, local: true do |f| %>
+      <% if @room_model.errors.any? %>
+        <ul>
+          <% @room_model.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="row mb-3">
+        <%= f.label :title, "施設名:", class: "col-sm-4 col-form-label fw-bold text-start" %>
+        <div class="col-sm-8">
+          <%= f.text_field :title, class: "form-control border border-primary" %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <%= f.label :description, "詳細:", class: "col-sm-4 col-form-label fw-bold text-start" %>
+        <div class="col-sm-8">
+          <%= f.text_area :description, class: "form-control border border-primary" %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <%= f.label :fee, "料金/日", class: "col-sm-4 col-form-label fw-bold text-start" %>
+        <div class="col-sm-8">
+          <%= f.number_field :fee, class: "form-control border border-primary" %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <%= f.label :address, "住所:", class: "col-sm-4 col-form-label fw-bold text-start" %>
+        <div class="col-sm-8">
+          <%= f.text_field :address, class: "form-control border border-primary" %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <%= f.label :facility_image, "画像", class: "col-sm-4 col-form-label fw-bold text-start" %>
+        <div class="col-sm-8">
+          <%= f.file_field :facility_image, class: "form-control border border-primary" %>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "施設を登録", class: "btn btn-primary px-4" %>
+      </div>
+    <% end %>
+  </div>
+</div>

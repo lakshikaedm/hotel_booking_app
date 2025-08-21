@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center mt-4">
+  <div class="card w-100" style="max-width: 800px;">
+    <div class="card-body">
+      <h1 class="card-title mb-4">予約の編集</h1>
+      <%= form_with model:@reservation_model, local: true do |f| %>
+        <% if @reservation_model.errors.any? %>
+          <ul>
+            <% @reservation_model.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+          </ul>
+        <% end %>
+
+        <div class="row mb-3 border border-dark rounded p-2 align-items-center">
+          <div class="col-sm-4 d-flex align-items-center">
+            <%= f.label :check_in, class: "mb-0" %>
+          </div>
+          <div class="col-sm-8">
+            <%= f.date_field :check_in, class: "form-control border border-primary" %>
+          </div>
+        </div>
+
+        <div class="row mb-3 border border-dark rounded p-2 align-items-center">
+          <div class="col-sm-4 d-flex align-items-center">
+            <%= f.label :check_out, class: "mb-0" %>
+          </div>
+          <div class="col-sm-8">
+            <%= f.date_field :check_out, class: "form-control border border-primary" %>
+          </div>
+        </div>
+
+        <div class="row mb-3 border border-dark rounded p-2 align-items-center">
+          <div class="col-sm-4 d-flex align-items-center">
+            <%= f.label :guests, class: "mb-0" %>
+          </div>
+          <div class="col-sm-8">
+            <%= f.number_field :guests, min: 1, class: "form-control border border-primary" %>
+          </div>
+        </div>
+
+        <%= f.submit "更新する", class: "btn btn-primary w-100 mt-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="container my-4 mt-4 p-1">
+  <%= form_with url: catalog_room_models_path, method: :get, local: true, class: "d-flex justify-content-center", role: "search" do %>
+    <div class="row g-2 w-100" style="max-width: 800px;">
+      <div class="col-md">
+        <label class="form-label">エリア</label>
+        <%= select_tag :area,
+              options_for_select([["(指定なし)", ""], ["東京, Tokyo", "Tokyo"], ["大阪, Osaka", "Osaka"], ["京都, Kyoto", "Kyoto"], ["札幌, Sapporo", "Sapporo"]], selected: @area),
+              include_blank: false,
+              class: "form-select",
+              style: "height: 50px; font-size: 16px; border: 2px solid blue; border-radius: 8px;" %>
+      </div>
+      <div class="col-md">
+        <label class="form-label">フリーワード</label>
+        <%= text_field_tag :q, @q,
+              placeholder: "例) 駅, 温泉, 静かな..",
+              class: "form-control",
+              style: "height: 50px; font-size: 16px; border: 2px solid blue; border-radius: 8px;" %>
+      </div>
+      <div class="col-md d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100" style="height: 50px; font-size: 16px; border-radius: 8px;">
+          検索する
+        </button>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="d-flex justify-content-center my-3">
+  <%= paginate @room_models %>
+</div>
+
+<div class="container my-4">
+  <div class="row">
+    <% @room_models.each do |room| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-top cover-200">
+            <%= facility_image_for(room, size: 400) %>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to room.title, room %></h5>
+            <p class="card-text"><%= room.description.truncate(80) %></p>
+            <p class="card-text"><strong>料金/日:</strong> <%= yen(room.fee) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center my-3">
+  <%= paginate @room_models %>
+</div>
+
+<div class="container my-4 text-center">
+  <%= link_to "すべての施設を見る", catalog_room_models_path, class: "btn btn-outline-primary btn-lg" %>
+</div>

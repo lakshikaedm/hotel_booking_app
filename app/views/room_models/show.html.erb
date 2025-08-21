@@ -1,0 +1,98 @@
+<div class="container my-3">
+  <div class="row g-4 align-items-start">
+    <div class="col-12 col-lg-5">
+      <div class="rounded overflow-hidden shadow-sm" style="height: 360px;">
+        <div style="width:100%; height:100%;">
+          <%= facility_image_for(@room_model, size: 800) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-7">
+      <h2 class="mb-2"><%= @room_model.title %></h2>
+      <p class="text-muted mb-3">作成日: <%= ymd(@room_model.created_at) %></p>
+
+      <dl class="row mb-3">
+        <dt class="col-sm-3">住所</dt>
+        <dd class="col-sm-9"><%= @room_model.address %></dd>
+
+        <dt class="col-sm-3">料金/日</dt>
+        <dd class="col-sm-9"><strong><%= yen(@room_model.fee) %></strong></dd>
+      </dl>
+
+      <div class="mb-3">
+        <p class="mb-0"><%= simple_format(@room_model.description) %></p>
+      </div>
+    </div>
+
+
+<p>
+  <%= link_to "戻る", catalog_room_models_path, class: "btn btn-primary" %>
+  <% if logged_in? && @room_model.user_model.id == current_user.id %>
+    <%= link_to "編集", edit_room_model_path(@room_model), class: "btn btn-warning" %>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#roomDel-<%= @room_model.id %>">
+      削除
+    </button>
+  <% end %>
+<div class="modal fade" id="roomDel-<%= @room_model.id %>" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">施設を削除しますか？</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex gap-3 align-items-start">
+          <div style="width: 140px; flex: 0 0 140px;">
+            <%= facility_image_for(@room_model, size: 400, class: "img-fluid rounded") %>
+          </div>
+          <div class="flex-grow-1">
+            <div class="fw-bold mb-1"><%= @room_model.title %></div>
+            <div class="text-muted mb-2">料金/日: <%= yen(@room_model.fee) %></div>
+            <div class="small"><%= truncate(@room_model.description.to_s, length: 100) %></div>
+          </div>
+        </div>
+        <div class="alert alert-warning mt-3 mb-0 small">
+          この操作は取り消せません。施設に紐づく予約も削除されます。
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        <%= button_to "削除する", room_model_path(@room_model), method: :delete, class: "btn btn-danger", form: { data: { turbo: false } } %>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<h4>予約フォーム</h4>
+<% if logged_in? %>
+  <div class="card p-4 shadow-sm border border-dark">
+    <%= form_with model: [@room_model, (@reservation_model || ReservationModel.new)], local: true do |f| %>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :check_in, "チェックイン", class: "form-label" %>
+          <%= f.date_field :check_in, class: "form-control" %>
+          <% ((@reservation_model&.errors&.full_messages_for(:check_in)) || []).each do |msg| %>
+            <div class="text-danger small"><%= msg %></div>
+          <% end %>
+        </div>
+        <div class="col-md-6 mb-3">
+          <%= f.label :check_out, "チェックアウト", class: "form-label" %>
+          <%= f.date_field :check_out, class: "form-control" %>
+          <% ((@reservation_model&.errors&.full_messages_for(:check_out)) || []).each do |msg| %>
+            <div class="text-danger small"><%= msg %></div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :guests, "人数", class: "form-label" %>
+        <%= f.number_field :guests, min: 1, value: 1, class: "form-control" %>
+      </div>
+
+      <%= f.submit "予約する", class: "btn btn-success w-100 mt-3" %>
+    <% end %>
+  </div>
+<% else %>
+  <p><%= link_to "ログインして予約", login_path(return_to: request.fullpath), class: "btn btn-outline-primary" %></p>
+<% end %>

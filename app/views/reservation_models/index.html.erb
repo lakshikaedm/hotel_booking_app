@@ -1,0 +1,30 @@
+
+<div class="container" style="max-width: 1000px;">
+  <h3>予約一覧</h3>
+  <% if @reservation_models.any? %>
+    <% @reservation_models.each do |r| %>
+      <div class="card mb-3 border border-dark rounded">
+        <div class="row g-0 align-items-center">
+          <div class="col-md-4">
+            <%= facility_image_for(r.room_model, style: "object-fit: cover; height: 180px; width: 100%;", class: "img-fluid rounded-start") %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">
+                <%= link_to r.room_model.title, r %>
+              </h5>
+              <p class="card-text text-muted"><%= r.room_model.description.truncate(80) %></p>
+              <p class="card-text">合計: <%= yen(r.total_price) %></p>
+              <p class="card-text">チェックイン: <%= ymd(r.check_in) %> / チェックアウト: <%= ymd(r.check_out) %></p>
+              <p class="card-text">予約確定: <%= ymd_hm(r.confirmed_at) %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="alert alert-info text-center mt-4">
+    現在、表示できる予約はありません。
+    </div>
+  <% end %>
+</div>

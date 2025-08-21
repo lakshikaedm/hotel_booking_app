@@ -1,0 +1,24 @@
+<dialog id="delete-res-<%= reservation.id %>" class="modal">
+  <div class="modal-box">
+    <h3>予約を削除しますか？</h3>
+    <div class="modal-body"> 
+      <div class="modal-image">
+        <%= facility_image_for(reservation.room_model, size: 160) %>
+      </div>
+      <div class="modal-info">
+        <p><strong>施設名:</strong> <%= reservation.room_model.title %></p>
+        <p><strong>料金/日:</strong> <%= yen(reservation.room_model.fee) %></p>
+        <p><strong>チェックイン:</strong> <%= ymd(reservation.check_in) %></p>
+        <p><strong>チェックアウト:</strong> <%= ymd(reservation.check_out) %></p>
+        <p><strong>人数:</strong> <%= reservation.guests %> 名</p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn" onclick="this.closest('dialog').close()">キャンセル</button>
+      <%= button_to reservation, method: :delete, form: { class: 'btn-danger-inline' }, data: { turbo: false } do %>
+      削除する
+      <% end %>
+    </div>
+  </div>
+</dialog>

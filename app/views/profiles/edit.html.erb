@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card p-4 border border-dark" style="max-width: 1000px; width: 100%;">
+    <h1 class="mb-4">プロフィール編集</h1>
+    <%= form_with model: @user_model, url: profile_path, local: true do |f| %>
+      
+      <div class="row align-items-center border border-dark rounded p-3 mb-3">
+        <div class="col-sm-3">
+          <%= f.label :icon_image, "プロフィール画像", class: "col-form-label" %>
+        </div>
+        <div class="col-sm-9">
+          <%= f.file_field :icon_image, class: "form-control border-primary", lang: "ja" %>
+        </div>
+      </div>
+
+      
+      <div class="row align-items-center border border-dark rounded p-3 mb-3">
+        <div class="col-sm-3">
+          <%= f.label :name, "名前", class: "col-form-label" %>
+        </div>
+        <div class="col-sm-9">
+          <%= f.text_field :name, class: "form-control border-primary" %>
+        </div>
+      </div>
+
+      
+      <div class="row align-items-center border border-dark rounded p-3 mb-3">
+        <div class="col-sm-3">
+          <%= f.label :bio, "自己紹介", class: "col-form-label" %>
+        </div>
+        <div class="col-sm-9">
+          <%= f.text_area :bio, class: "form-control border-primary", rows: 4 %>
+        </div>
+      </div>
+
+      <%= f.submit "保存", class: "btn btn-primary w-100" %>
+    <% end %>
+  </div>
+</div>

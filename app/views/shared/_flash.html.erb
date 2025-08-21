@@ -1,0 +1,15 @@
+<% flash.each do |type, message| %>
+  <% bs_class =
+      case type.to_s
+      when "notice" then "alert-success"
+      when "alert"  then "alert-danger"
+      else               "alert-info"
+      end %>
+
+  <div class="container mt-3">
+    <div class="alert <%= bs_class %> alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert">
+      <div><%= message %></div>
+      <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+<% end %>

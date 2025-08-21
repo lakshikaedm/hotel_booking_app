@@ -1,0 +1,31 @@
+<h1 class="text-center mb-4">ログイン</h1>
+
+<div class="card border-dark mx-auto p-4" style="max-width: 800px;">
+  <% if flash[:alert] %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+  <%= form_with url: session_path, method: :post, class: "row g-3" do |f| %>
+    <div class="row align-items-center mb-3 border rounded p-2">
+      <label class="col-sm-4 col-form-label fw-bold">メールアドレス</label>
+      <div class="col-sm-8">
+        <%= email_field_tag :email, params[:email], class: "form-control border border-primary" %>
+      </div>
+    </div>
+
+    <div class="row align-items-center mb-3 border rounded p-2">
+      <label class="col-sm-4 col-form-label fw-bold">パスワード</label>
+      <div class="col-sm-8">
+        <%= password_field_tag :password, nil, class: "form-control border border-primary" %>
+      </div>
+    </div>
+
+    <%= hidden_field_tag :return_to, params[:return_to] %>
+
+    <div class="d-grid">
+      <%= submit_tag "ログイン", class: "btn btn-primary w-100 mt-3" %>
+    </div>
+  <% end %>
+</div>

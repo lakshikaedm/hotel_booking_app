@@ -1,12 +1,28 @@
 Rails.application.routes.draw do
-  get 'user_models/new'
-  get 'user_models/create'
-  get 'user_models/show'
-  get 'user_models/edit'
-  get 'user_models/update'
+  resources :room_models do
+    resources :reservation_models, only: [:new, :create]
+    collection do
+      get :catalog
+    end
+  end
+
+  # Home
   root 'room_models#index'
 
-  resources :user_models, only:  [:new, :create, :show, :edit, :update]
+  # Users (note: UserModel, not User)
+  resources :user_models, only: [:new, :create, :show, :edit, :update, :destroy]
 
+  # Sessions
   resource :session, only: [:new, :create, :destroy]
+  get    'login',  to: 'sessions#new',     as: :login
+  post   'login',  to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy', as: :logout
+
+  # Profile (singular resource)
+  resource :profile, only: [:edit, :update,]
+
+  # Search page
+  get '/search', to: 'search#index'
+
+  resources :reservation_models, only: [:index, :show, :edit, :update, :destroy]
 end
